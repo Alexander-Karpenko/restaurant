@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Menus</title>
+</head>
+<body>
+<!-- выводим все меню -->
+<div th:each="menu : ${menus}">
+    <a th:href="@{/menus/{id}(id=${menu.getId()})}"
+       th:text="${'Меню на ' + menu.getDate()}">user</a>
+</div>
+
+<a th:href="@{/menus/new}"><input type="submit" value="Добавить новое меню "/></a>
+<br/>
+<a th:href="@{/sales}"><input type="submit" value="Перейти к истории продаж"/></a>
+</body>
+</html>

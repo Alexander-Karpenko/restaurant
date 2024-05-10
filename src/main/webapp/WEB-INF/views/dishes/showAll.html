@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All dishes</title>
+</head>
+<body>
+<p>Блюда ресторана: </p>
+<div th:each="dish:${dishes}"> <!-- выводим все блюда ресторана  -->
+    <a th:href="@{/dishes/{id}(id=${dish.getId()})}"
+       th:text="${dish.getName()} + ', Цена - ' + ${dish.getPrice()}">dish</a>
+</div>
+<!-- ссылка на другую страницу-->
+<a th:href="@{/dishes/add}"><input type="submit" value="Добавить блюдо"/></a>
+<br/><!-- <br/> - абзац-->
+<!-- ссылка на другую страницу-->
+<a th:href="@{/menus}"><input type="submit" value="Перейти к меню ресторана"/></a>
+</body>
+</html>

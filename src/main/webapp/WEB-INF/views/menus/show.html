@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+</head>
+<body>
+<p th:text="'Меню на ' + ${menu.getDate}">VALUE</p>
+<div th:if="${menu.getDishes.size()} == 0">
+    <p>В меню пока нет блюд</p>
+</div>
+<div th:if="${menu.getDishes.size()} != 0">
+    <b><p>Блюда:</p></b>
+    <div th:each="dish:${menu.getDishes}">
+        <a th:href="@{/dishes/{id}(id=${dish.getId()})}"
+           th:text="${dish.getName()} + ', Цена - ' + ${dish.getPrice()}">dish</a>
+    </div>
+</div>
+
+<form th:method="POST" th:action="@{/sales}">
+    <label for="dish2">Выберите блюдо</label>
+    <select th:object="${dish}" th:field="*{id}" id="dish2">
+        <option th:each="dish: ${menu.getDishes}" th:value="${dish.getId()}"
+                th:text="${dish.getName()}">
+        </option>
+    </select>
+    <input type="submit" value="Заказать">
+</form>
+
+<br/>
+<a th:href="@{/menus/{id}/ingredients(id=${menu.getId()})}"><input type="submit" value="Посмотреть список для закупки"/></a>
+<br/>
+<a th:href="@{/menus/{id}/edit(id=${menu.getId()})}"><input type="submit" value="Редактировать меню"/></a>
+
+<form th:method="POST" th:action="@{/menus/{id}/delete(id=${menu.getId()})}">
+    <input type="submit" value="Удалить меню"/>
+</form>
+<br/>
+<a th:href="@{/menus}"><input type="submit" value="Перейти ко всем меню"/></a>
+</body>
+</html>

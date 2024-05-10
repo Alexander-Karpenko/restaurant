@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Ingredients</title>
+</head>
+<body>
+<p th:text="'Список для закупки меню на ' + ${menu.getDate}">VALUE</p><!-- выводим все ингредиенты из блюд, которые есть в меню-->
+<div th:each="dish:${menu.getDishes}">
+    <div th:each="ingredient:${dish.getIngredients}">
+        <p th:text="${ingredient.getName()} + ', Колличество для одного блюда - ' + ${ingredient.getQuantity()}">ingredient</p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dish edit</title>
+</head>
+<body>
+
+<b><p th:text=" ${dish.getName}">VALUE</p></b><!-- это блок текста в th:text помещаем то, что замени VALUE, соответсвенно выводим имя блюда -->
+<p th:text="'Цена - ' + ${dish.getPrice}">VALUE</p><!--выводим цену блюда -->
+<p th:text="'Готово блюд - ' + ${dish.getReadyDishes}">VALUE</p><!-- выводим кол-во готовых блюд-->
+<div th:if="${dish.getIngredients.size()} == 0"><!-- проверяем есть ли ингредиенты в блюде, если нет, то выводим сообщение-->
+    <p>В блюде пока нет ингредиентов</p>
+</div>
+<div th:if="${dish.getIngredients.size()} != 0"><!--если есть ингредиенты выводим все игредиенты -->
+    <b><p>Ингредиенты:</p></b>
+    <div th:each="ingredient:${dish.getIngredients}"><!-- обращаемся к каждому ингредиенту, который есть в блюде -->
+        <p th:text="${ingredient.getName()} + ', ' + ${ingredient.getQuantity()}">dish</p> <!-- выводим имя ингредиента и кол-во-->
+    </div>
+</div>
+
+<form th:method="POST" th:action="@{/dishes/{id}/update(id=${dish.getId()})}" th:object="${dish}"> <!-- это форма запроса-->
+    <!-- при нажатии кнопки редактировать, отправляеться post запрос на url @{/dishes/{id}/update(id=${dish.getId()})} -->
+    <!-- с dish, у которго поля уже заполены из формы-->
+    <label for="name">Введите новое имя блюда: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="price">Введите новую цену блюда: </label>
+    <input type="text" th:field="*{price}" id="price"/>
+    <br/>
+    <label for="ready_dishes">Введите кол-во готовых блюд: </label>
+    <input type="text" th:field="*{readyDishes}" id="ready_dishes"/>
+    <br/>
+    <input type="submit" value="Редактировать">
+</form>
+
+<form th:method="POST" th:action="@{/dishes/{id}/add_ingredient(id=${dish.getId()})}" th:object="${ingredient}">
+    <!-- форма для добавления ингредиента-->
+    <b><p>Добавление ингредиента</p></b>
+    <label for="name">Введите имя для ингредиента: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="quantity">Введите колличество ингредиента: </label>
+    <input type="text" th:field="*{quantity}" id="quantity"/>
+    <br/>
+    <input type="submit" value="Добавить ингредиент">
+</form>
+
+<form th:method="POST" th:action="@{/dishes/{id}/delete_ingredient(id=${dish.getId()})}">
+    <!-- форма для удаления ингредиента -->
+    <b><p>Удаление ингредиента</p></b>
+    <label for="ingredient">Выберите ингредиент</label>
+    <select th:object="${ingredient}" th:field="*{id}" id="ingredient">
+        <option th:each="ingredient: ${dish.getIngredients}" th:value="${ingredient.getId()}"
+                th:text="${ingredient.getName()}">
+        </option>
+    </select>
+    <br/>
+    <input type="submit" value="Удалить ингридиент">
+</form>
+
+<!-- ссылка на другую страницу -->
+<a th:href="@{/dishes/{id}(id=${dish.getId()})}"><input type="submit" value="Завершить редактирование"/></a>
+
+</body>
+</html>

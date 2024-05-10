@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add dish</title>
+</head>
+<body>
+<p>Создание блюда: </p>
+<form th:method="POST" th:action="@{/dishes/add}" th:object="${dish}">
+    <!-- форма для создания нового блюда-->
+    <label for="name">Введите название: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="author">Введите цену: </label>
+    <input type="text" th:field="*{price}" id="author"/>
+    <br/>
+    <input type="submit" value="Создать"/>
+</form>
+</body>
+</html>

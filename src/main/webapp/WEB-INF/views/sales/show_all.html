@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <title>All sales</title>
+</head>
+<body>
+<!-- выводим всю историю продаж-->
+<div th:each="sale : ${sales}">
+    <p th:text="${'Время продажи - ' + sale.getDate() + '; стоимость - ' + sale.getPrice()  + '; Наименование - ' + sale.getDishName()}">sale</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New menu</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/menus}" th:object="${menu}">
+    <!-- форма создания меню-->
+    <label for="date">Введите дату для меню: </label>
+    <input type="text" th:field="*{date}" id="date"/>
+    <br/>
+    <input type="submit" value="Создать"/>
+</form>
+
+</body>
+</html>
